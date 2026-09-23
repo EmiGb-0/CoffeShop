@@ -1,0 +1,138 @@
+.barra {
+  background-color: #f0f0f0;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.contenedor {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.barra h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.barra a {
+  font-size: 1rem;
+  color: #666;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+body {
+  margin: 0;
+  background-color: #f7f3ee;
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+.menu {
+  background-color: #fff;
+  margin: 20px 100px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pedido {
+  background-color: #fff;
+  margin: 20px 100px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pedidoc {
+  background-color: #fff;
+  margin: 20px 100px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#menu {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.producto,
+.producto-admin {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.producto h3,
+.producto-admin h3 {
+  margin: 0 0 8px;
+}
+
+.producto p,
+.producto-admin p {
+  margin: 6px 0;
+}
+
+select,
+input,
+textarea,
+button {
+  box-sizing: border-box;
+  font: inherit;
+  padding: 8px;
+}
+
+select,
+input,
+textarea {
+  width: 100%;
+  margin: 5px 0 12px;
+}
+
+button {
+  border: 0;
+  border-radius: 4px;
+  background: #6f4e37;
+  color: #fff;
+  cursor: pointer;
+}
+
+.admin-contenedor {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 20px;
+  display: grid;
+  gap: 20px;
+}
+
+.panel-admin {
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.producto-admin {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 12px;
+}
+
+.producto-inactivo {
+  opacity: 0.6;
+}
+
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
