@@ -14,6 +14,68 @@
     </header>
 
     <main class="admin-contenedor">
+
+        <section class="panel-admin">
+
+            <h2>
+                Promoción
+            </h2>
+
+            <form id="promotion-form">
+
+                <label>
+                    Título
+
+                    <input
+                        type="text"
+                        name="title"
+                        required
+                    >
+                </label>
+
+
+                <label>
+                    Descripción
+
+                    <textarea
+                        name="description"
+                        required
+                    ></textarea>
+                </label>
+
+
+                <label>
+                    Descuento %
+
+                    <input
+                        type="number"
+                        name="discount"
+                        min="0"
+                        max="100"
+                        required
+                    >
+                </label>
+
+
+                <label class="checkbox">
+
+                    <input
+                        type="checkbox"
+                        name="active"
+                    >
+
+                    Promoción activa
+
+                </label>
+
+
+                <button type="submit">
+                    Guardar promoción
+                </button>
+
+            </form>
+
+        </section>
         <section class="panel-admin">
             <h2>Nuevo producto</h2>
             <form id="producto-form">
