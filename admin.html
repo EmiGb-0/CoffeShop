@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar | Coffe Shop</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+    <script src="src/js/main.js" defer></script>
+</head>
+<body>
+    <header class="barra">
+        <h1>Administrar productos</h1>
+        <a href="index.html">Ver menú</a>
+    </header>
+
+    <main class="admin-contenedor">
+        <section class="panel-admin">
+            <h2>Nuevo producto</h2>
+            <form id="producto-form">
+                <input type="hidden" name="id">
+                <label>Nombre <input name="name" required></label>
+                <label>Descripción <textarea name="description" required></textarea></label>
+                <label>Precio <input type="number" name="price" min="0" step="0.01" required></label>
+                <label>Categoría <input name="category" required></label>
+                <button type="submit">Guardar producto</button>
+            </form>
+        </section>
+
+        <section class="panel-admin">
+            <h2>Productos del menú</h2>
+            <div id="admin-productos"></div>
+        </section>
+    </main>
+</body>
+</html>
