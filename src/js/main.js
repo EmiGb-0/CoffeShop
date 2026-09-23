@@ -29,46 +29,41 @@ function formatPrice(precio) {
 	return precio.toFixed(2) + ' MXN';
 }
 
-// 
-function renderPublicMenu() {
-	const menu = document.getElementById('menu');
-	const select = document.getElementById('articulo');
+//Menú
+function renderPublicMenu(listaProductos = getProducts()) {
+    const menu = document.getElementById('menu');
+    const select = document.getElementById('articulo');
 
-	if (!menu || !select) return;
+    if (!menu || !select) return;
 
-	const productos = getProducts();
-	
-	menu.innerHTML = '';
-	select.innerHTML = '<option value="">Selecciona un artículo</option>';
+    menu.innerHTML = '';
+    select.innerHTML = '<option value="">Selecciona un artículo</option>';
 
-	let hayDisponibles = false;
+    // Filtramos solo los disponibles
+    const disponibles = listaProductos.filter(prod => prod.available);
+    let hayDisponibles = disponibles.length > 0;
 
-	for (let i = 0; i < productos.length; i++) {
-		const prod = productos[i];
+    if (hayDisponibles) {
+        disponibles.forEach(prod => {
+            // Agregar tarjeta al menu
+            menu.innerHTML += `
+                <article class="producto">
+                    <h3>${prod.name}</h3>
+                    <p>${prod.description}</p>
+                    <strong>${formatPrice(prod.price)}</strong>
+                </article>
+            `;
 
-		if (prod.available) {
-			hayDisponibles = true;
-
-			// Agregar tarjeta al menu
-			menu.innerHTML += `
-				<article class="producto">
-					<h3>${prod.name}</h3>
-					<p>${prod.description}</p>
-					<strong>${formatPrice(prod.price)}</strong>
-				</article>
-			`;
-
-			// Agregar opción al select
-			select.innerHTML += `
-				<option value="${prod.id}">${prod.name} - ${formatPrice(prod.price)}</option>
-			`;
-		}
-	}
-
-	if (!hayDisponibles) {
-		menu.innerHTML = '<p>No hay productos disponibles en este momento.</p>';
-	}
+            // Agregar opción al select
+            select.innerHTML += `
+                <option value="${prod.id}">${prod.name} - ${formatPrice(prod.price)}</option>
+            `;
+        });
+    } else {
+        menu.innerHTML = '<p>No hay productos disponibles en este momento.</p>';
+    }
 }
+
 function renderAdmin() {
 	const productList = document.getElementById('admin-productos');
 	const productForm = document.getElementById('producto-form');
@@ -151,19 +146,19 @@ function renderAdmin() {
 			alert('Por favor completa todos los campos correctamente.');
 			return;
 		}
-
 		if (id) {
-			// Es edición: buscamos el producto por id
-			for (let i = 0; i < productos.length; i++) {
-				if (productos[i].id === id) {
-					productos[i].name = name;
-					productos[i].description = description;
-					productos[i].price = price;
-					productos[i].category = category;
-					break;
-				}
-			}
-		} else {
+            // Usamos find() para buscar el producto exacto por su id
+            const productoEditado = productos.find(prod => prod.id === id);
+            
+            if (productoEditado) {
+                productoEditado.name = name;
+                productoEditado.description = description;
+                productoEditado.price = price;
+                productoEditado.category = category;
+            }
+        }
+		
+		 else {
 			// Es nuevo: agregamos al array
 			const nuevoProducto = {
 				id: String(Date.now()),
@@ -191,3 +186,43 @@ function renderAdmin() {
 // Iniciar vistas
 renderPublicMenu();
 renderAdmin();
+
+
+// Filtros de menú
+document.addEventListener('DOMContentLoaded', () => {
+    const botonesFiltro = document.querySelectorAll('#filtros-menu button');
+    
+    if (botonesFiltro.length === 0) return; 
+
+    botonesFiltro.forEach(boton => {
+        boton.addEventListener('click', (e) => {
+            // Actualizar estado activo del botón
+            botonesFiltro.forEach(btn => btn.classList.remove('activo'));
+            e.target.classList.add('activo');
+
+            const filtro = e.target.getAttribute('data-filtro');
+            const todosLosProductos = getProducts();
+            let productosFiltrados = [];
+
+            // Aplicar filter() según el botón seleccionado
+            if (filtro === 'todos') {
+                productosFiltrados = todosLosProductos;
+            } 
+            else if (filtro === 'bebidas') {
+                productosFiltrados = todosLosProductos.filter(prod => prod.category === 'Café' || prod.category === 'Té');
+            } 
+            else if (filtro === 'postres') {
+                productosFiltrados = todosLosProductos.filter(prod => prod.category === 'Panadería');
+            } 
+            else if (filtro === 'Precio mayor') {
+                productosFiltrados = todosLosProductos.filter(prod => prod.price >= 4);
+            } 
+            else if (filtro === 'Precio menor') {
+                productosFiltrados = todosLosProductos.filter(prod => prod.price < 4);
+            }
+
+            // Actualizar la pantalla enviando la lista ya filtrada
+            renderPublicMenu(productosFiltrados);
+        });
+    });
+});
