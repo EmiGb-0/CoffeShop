@@ -141,43 +141,17 @@ function renderAdmin() {
 		const description = descInput.value;
 		const price = parseFloat(priceInput.value);
 		const category = catInput.value;
+		const exito = guardarProductoCocina(productos, id, name, description, price, category);
 
-		if (!name || !description || !category || isNaN(price) || price < 0) {
-			alert('Por favor completa todos los campos correctamente.');
-			return;
-		}
-		if (id) {
-            // Usamos find() para buscar el producto exacto por su id
-            const productoEditado = productos.find(prod => prod.id === id);
-            
-            if (productoEditado) {
-                productoEditado.name = name;
-                productoEditado.description = description;
-                productoEditado.price = price;
-                productoEditado.category = category;
-            }
+		if (exito) {
+            saveProducts(productos);
+            productForm.reset();
+            idInput.value = '';
+            submitBtn.textContent = 'Guardar producto';
+
+            pintarAdmin();
+            renderPublicMenu();
         }
-		
-		 else {
-			// Es nuevo: agregamos al array
-			const nuevoProducto = {
-				id: String(Date.now()),
-				name: name,
-				description: description,
-				price: price,
-				category: category,
-				available: true
-			};
-			productos.push(nuevoProducto);
-		}
-
-		saveProducts(productos);
-		productForm.reset();
-		idInput.value = '';
-		submitBtn.textContent = 'Guardar producto';
-
-		pintarAdmin();
-		renderPublicMenu();
 	};
 
 	pintarAdmin();
@@ -186,43 +160,3 @@ function renderAdmin() {
 // Iniciar vistas
 renderPublicMenu();
 renderAdmin();
-
-
-// Filtros de menú
-document.addEventListener('DOMContentLoaded', () => {
-    const botonesFiltro = document.querySelectorAll('#filtros-menu button');
-    
-    if (botonesFiltro.length === 0) return; 
-
-    botonesFiltro.forEach(boton => {
-        boton.addEventListener('click', (e) => {
-            // Actualizar estado activo del botón
-            botonesFiltro.forEach(btn => btn.classList.remove('activo'));
-            e.target.classList.add('activo');
-
-            const filtro = e.target.getAttribute('data-filtro');
-            const todosLosProductos = getProducts();
-            let productosFiltrados = [];
-
-            // Aplicar filter() según el botón seleccionado
-            if (filtro === 'todos') {
-                productosFiltrados = todosLosProductos;
-            } 
-            else if (filtro === 'bebidas') {
-                productosFiltrados = todosLosProductos.filter(prod => prod.category === 'Café' || prod.category === 'Té');
-            } 
-            else if (filtro === 'postres') {
-                productosFiltrados = todosLosProductos.filter(prod => prod.category === 'Panadería');
-            } 
-            else if (filtro === 'Precio mayor') {
-                productosFiltrados = todosLosProductos.filter(prod => prod.price >= 4);
-            } 
-            else if (filtro === 'Precio menor') {
-                productosFiltrados = todosLosProductos.filter(prod => prod.price < 4);
-            }
-
-            // Actualizar la pantalla enviando la lista ya filtrada
-            renderPublicMenu(productosFiltrados);
-        });
-    });
-});
