@@ -1,6 +1,18 @@
-// ==========================================
+
 // MÓDULO CAJA
-// ==========================================
+// Guarda los pedidos en el navegador
+function getOrders() {
+    const datos = localStorage.getItem('coffeeshop-orders');
+    if (datos == null) {
+        return [];
+    }
+    return JSON.parse(datos);
+}
+
+// Da formato al precio
+function formatPrice(precio) {
+    return '$' + precio + ' MXN';
+}
 
 // reduce() calcula el costo total de los productos de un pedido
 function calculateTotal(productos) {
