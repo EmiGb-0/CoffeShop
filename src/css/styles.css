@@ -1,29 +1,6 @@
-.barra {
-  background-color: #f0f0f0;
-  text-align: center;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.contenedor {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 0 20px;
-  text-align: center;
-}
-
-.barra h1 {
-  font-size: 2rem;
-  color: #333;
-}
-
-.barra a {
-  font-size: 1rem;
-  color: #666;
-  text-decoration: none;
-  cursor: pointer;
+/* Estilos globales */
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -33,54 +10,173 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.menu {
-  background-color: #fff;
-  margin: 20px 100px;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Barra superior y navegación */
+.barra {
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
 }
 
-.pedido {
-  background-color: #fff;
-  margin: 20px 100px;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.barra h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #333;
 }
 
-.pedidoc {
-  background-color: #fff;
-  margin: 20px 100px;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.navegacion {
+  display: flex;
+  gap: 10px;
 }
 
+.navegacion a {
+  font-size: 0.95rem;
+  color: #555;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+.navegacion a:hover,
+.navegacion a.activo {
+  background-color: #6f4e37;
+  color: #fff;
+  border-color: #6f4e37;
+}
+
+/* Contenedores */
+.contenedor {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.menu,
+.pedidoc,
+.panel-modulo {
+  background-color: #fff;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Promoción */
+.promocion {
+  background-color: #fff8e7;
+  border: 1px dashed #d4a373;
+  padding: 15px 20px;
+  margin: 20px auto;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.promocion h2 {
+  margin: 5px 0;
+  color: #6f4e37;
+}
+
+.promocion p {
+  margin: 5px 0 10px;
+  color: #555;
+}
+
+.promocion-etiqueta {
+  display: inline-block;
+  background-color: #6f4e37;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+/* Filtros */
+#filtros-menu,
+.filtros-cocina {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+#filtros-menu button,
+.filtros-cocina button {
+  background-color: #eee;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#filtros-menu button.activo,
+.filtros-cocina button.activo {
+  background-color: #6f4e37;
+  color: #fff;
+  border-color: #6f4e37;
+}
+
+/* Listado de menú */
 #menu {
   display: grid;
   gap: 12px;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
-.producto,
-.producto-admin {
+.producto {
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 6px;
   background: #fff;
+  text-align: left;
 }
 
-.producto h3,
-.producto-admin h3 {
-  margin: 0 0 8px;
+.producto .categoria {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
-.producto p,
-.producto-admin p {
-  margin: 6px 0;
+.producto h3 {
+  margin: 5px 0 6px;
 }
 
+.producto p {
+  margin: 6px 0 10px;
+  color: #666;
+}
+
+.precios {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.precio-anterior {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.precio-promocion {
+  color: #b22222;
+  font-size: 1.1rem;
+}
+
+.precio {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+/* Formularios y controles */
 select,
 input,
 textarea,
@@ -95,6 +191,8 @@ input,
 textarea {
   width: 100%;
   margin: 5px 0 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 button {
@@ -105,34 +203,128 @@ button {
   cursor: pointer;
 }
 
-.admin-contenedor {
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 0 20px;
-  display: grid;
-  gap: 20px;
+button:hover {
+  background: #563c2b;
 }
 
-.panel-admin {
-  padding: 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Pedido del Cliente */
+.pedido-formulario {
+  text-align: left;
+  margin-bottom: 20px;
 }
 
-.producto-admin {
+.resumen-pedido {
+  text-align: left;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.resumen-pedido ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 15px;
+}
+
+.resumen-pedido li {
   display: flex;
   justify-content: space-between;
-  gap: 15px;
-  margin-top: 12px;
-}
-
-.producto-inactivo {
-  opacity: 0.6;
-}
-
-.acciones {
-  display: flex;
   align-items: center;
-  gap: 6px;
+  padding: 8px 10px;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.btn-quitar {
+  background: #e74c3c;
+  color: #fff;
+  padding: 2px 8px;
+  font-size: 0.8rem;
+  border-radius: 3px;
+}
+
+/* Tarjetas de Pedidos en Caja y Cocina */
+.pedido-caja,
+.pedido-cocina {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: #fafafa;
+  text-align: left;
+}
+
+.pedido-caja-header,
+.pedido-cocina-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+.pedido-caja-header h3,
+.pedido-cocina-header h3 {
+  margin: 0;
+}
+
+.pedido-caja ul,
+.pedido-cocina ul {
+  margin: 8px 0 12px;
+  padding-left: 20px;
+}
+
+.total-pedido {
+  font-size: 1.1rem;
+  margin: 10px 0 0;
+  color: #27ae60;
+}
+
+/* Estados de los pedidos */
+.badge-estado {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.estado-pendiente {
+  background-color: #f39c12;
+  color: #fff;
+}
+
+.estado-preparando {
+  background-color: #2980b9;
+  color: #fff;
+}
+
+.estado-listo {
+  background-color: #27ae60;
+  color: #fff;
+}
+
+/* Acciones en Cocina */
+.acciones-cocina {
+  margin-top: 10px;
+}
+
+.btn-estado {
+  background-color: #2980b9;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+}
+
+.btn-estado.btn-listo {
+  background-color: #27ae60;
+}
+
+.badge-completado {
+  font-weight: bold;
+  color: #27ae60;
 }
