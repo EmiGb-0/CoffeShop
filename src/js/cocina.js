@@ -5,7 +5,11 @@ function guardarProductoCocina(productos, id, name, description, price, category
     }
 
     if (id) {
-        // Usamos find() para buscar el producto exacto por su id
+        const productoExistente = productos.find(prod => prod.id === id);
+        if (!productoExistente) {
+            alert('Producto no encontrado para editar.');
+            return false; // Avisamos que no se encontró el producto
+        }
         const productoEditado = productos.find(prod => prod.id === id);
         
         if (productoEditado) {
@@ -15,7 +19,6 @@ function guardarProductoCocina(productos, id, name, description, price, category
             productoEditado.category = category;
         }
     } else {
-        // Es nuevo: agregamos al array
         const nuevoProducto = {
             id: String(Date.now()),
             name: name,
@@ -39,7 +42,50 @@ function obtenerPedidosparaCocina() {
 function renderPedidosCocina() {
     const pedidos = obtenerPedidosparaCocina();
     const contenedorPedidos = document.getElementById('pedidos-cocina');
+
+    contenedorPedidos.innerHTML = '';
+
+    if (pedidos.length === 0) {
+        contenedorPedidos.innerHTML = '<p>No hay pedidos pendientes en cocina.</p>';
+        return;
+    }
+
+    pedidos.forEach(pedido => {
+        // Le agregamos dos botones a cada pedido, cada uno manda un estado diferente
+        contenedorPedidos.innerHTML += `
+            <article class="pedido-tarjeta">
+                <h3>Pedido #${pedido.id}</h3>
+                <p>Mesa/Cliente: ${pedido.cliente}</p>
+                
+                <div class="acciones-cocina">
+                    <button onclick="actualizarEstadoPedido(${pedido.id}, 'en_caja')">
+                        Listo (Enviar a Caja)
+                    </button>
+                    <button onclick="actualizarEstadoPedido(${pedido.id}, 'cancelado_cocina')">
+                        Rechazar (Sin insumos)
+                    </button>
+                </div>
+            </article>
+        `;
+    });
 }
+
+function actualizarEstadoPedido(idPedido, nuevoEstado) {
+    const todosLosPedidos = getOrders(); 
+    
+    const pedidoProcesado = todosLosPedidos.find(pedido => pedido.id === idPedido);
+
+    if (pedidoProcesado) {
+
+        pedidoProcesado.status = nuevoEstado; 
+        
+        saveOrders(todosLosPedidos); 
+        renderPedidosCocina(); 
+    }
+}
+
+
+
 
 //Lógica de los botones con filter()
 document.addEventListener('DOMContentLoaded', () => {
