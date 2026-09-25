@@ -218,7 +218,6 @@ function createOrder() {
     renderCurrentOrder();
     document.getElementById('articulo').value = '';
 
-    alert(`¡Pedido #${nuevoPedido.id} realizado con éxito! Ha sido enviado a cocina.`);
 }
 
 // Inicialización de la vista Cliente
@@ -227,6 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderMenu();
     renderOrderSelect();
     renderCurrentOrder();
+    renderOrderStatus();
 
     // Eventos de los botones de filtro
     const botonesFiltro = document.querySelectorAll('#filtros-menu button');
@@ -249,4 +249,134 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnOrdenar) {
         btnOrdenar.addEventListener('click', createOrder);
     }
+    const btnCancelar = document.getElementById('btn-cancelar');
+
+    if (btnCancelar) {
+        btnCancelar.addEventListener(
+            'click',
+            cancelOrder
+        );
+    }
 });
+
+// ==========================================
+// SEGUIMIENTO DEL PEDIDO
+// ==========================================
+
+// Mostrar el estado actual del pedido
+function renderOrderStatus() {
+    const estado = document.getElementById('estado-pedido');
+    const btnCancelar = document.getElementById('btn-cancelar');
+
+    if (!estado) return;
+
+    if (!pedidoEnSeguimiento) {
+        estado.textContent = 'Todavía no has realizado un pedido.';
+
+        if (btnCancelar) {
+            btnCancelar.style.display = 'none';
+        }
+
+        return;
+    }
+
+    estado.textContent =
+        `Pedido #${pedidoEnSeguimiento.id}: ${pedidoEnSeguimiento.estado}`;
+
+    if (btnCancelar) {
+        if (
+            pedidoEnSeguimiento.estado === 'entregado' ||
+            pedidoEnSeguimiento.estado === 'cancelado'
+        ) {
+            btnCancelar.style.display = 'none';
+        } else {
+            btnCancelar.style.display = 'inline-block';
+        }
+    }
+}
+
+
+// Cambiar el estado de un pedido
+function changeOrderStatus(id, nuevoEstado) {
+    const pedidos = getOrders();
+
+    const pedido = pedidos.find(
+        pedido => pedido.id === id
+    );
+
+    if (!pedido) return;
+
+    pedido.estado = nuevoEstado;
+
+    saveOrders(pedidos);
+
+    pedidoEnSeguimiento = pedido;
+
+    renderOrderStatus();
+}
+
+
+// Simular el proceso del pedido usando setTimeout()
+function simulateOrderStatus(id) {
+
+    // Después de 3 segundos
+    const preparando = setTimeout(() => {
+        changeOrderStatus(
+            id,
+            'preparando'
+        );
+    }, 3000);
+
+
+    // Después de 6 segundos
+    const empacando = setTimeout(() => {
+        changeOrderStatus(
+            id,
+            'empacando'
+        );
+    }, 6000);
+
+
+    // Después de 9 segundos
+    const entregado = setTimeout(() => {
+        changeOrderStatus(
+            id,
+            'entregado'
+        );
+    }, 9000);
+
+
+    temporizadoresPedido = [
+        preparando,
+        empacando,
+        entregado
+    ];
+}
+
+
+// Cancelar pedido
+function cancelOrder() {
+
+    if (!pedidoEnSeguimiento) {
+        return;
+    }
+
+    if (
+        pedidoEnSeguimiento.estado === 'entregado' ||
+        pedidoEnSeguimiento.estado === 'cancelado'
+    ) {
+        return;
+    }
+
+
+    // Evitar que los setTimeout sigan cambiando el estado
+    temporizadoresPedido.forEach(
+        temporizador => clearTimeout(temporizador)
+    );
+
+
+    changeOrderStatus(
+        pedidoEnSeguimiento.id,
+        'cancelado'
+    );
+}
