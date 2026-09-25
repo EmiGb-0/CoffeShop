@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffe Shop</title>
-
+    <title>Coffe Shop | Cliente</title>
     <link rel="stylesheet" href="src/css/styles.css">
-
-    <script src="src/js/main.js" defer></script>
+    <script src="src/js/data.js" defer></script>
+    <script src="src/js/cliente.js" defer></script>
 </head>
 <body>
 
     <header class="barra">
         <h1>Coffe Shop</h1>
-        <a href="admin.html">Administrar</a>
+        <nav class="navegacion">
+            <a href="index.html" class="activo">Cliente</a>
+            <a href="caja.html">Caja</a>
+            <a href="cocina.html">Cocina</a>
+        </nav>
     </header>
 
     <main>
-         <section
-            id="promocion"
-            class="promocion contenedor"
-        ></section>
+        <section id="promocion" class="promocion contenedor"></section>
+
         <section class="menu contenedor">
             <div id="filtros-menu">
                 <button data-filtro="todos" class="activo">Todos</button>
@@ -34,22 +35,27 @@
                 <p>Explora nuestra gran variedad</p>
             </div>
 
-            <div id="menu">
-
-            </div>
+            <div id="menu"></div>
         </section>
 
         <section class="pedidoc contenedor">
             <div>
-                <h2>Has tu pedido</h2>
+                <h2>Haz tu pedido</h2>
                 <p>Selecciona los artículos que deseas ordenar</p>
 
-                <form action="">
+                <div class="pedido-formulario">
                     <label for="articulo">Artículo:</label>
                     <select name="articulo" id="articulo">
                         <option value="">Selecciona un artículo</option>
                     </select>
-                </form>
+                    <button type="button" id="btn-agregar">Agregar al pedido</button>
+                </div>
+
+                <div class="resumen-pedido">
+                    <h3>Artículos seleccionados:</h3>
+                    <ul id="lista-pedido"></ul>
+                    <button type="button" id="btn-ordenar">Realizar pedido</button>
+                </div>
             </div>
         </section>
     </main>

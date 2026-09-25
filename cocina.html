@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffe Shop | Cocina</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+    <script src="src/js/data.js" defer></script>
+    <script src="src/js/cocina.js" defer></script>
+</head>
+<body>
+
+    <header class="barra">
+        <h1>Coffe Shop - Cocina</h1>
+        <nav class="navegacion">
+            <a href="index.html">Cliente</a>
+            <a href="caja.html">Caja</a>
+            <a href="cocina.html" class="activo">Cocina</a>
+        </nav>
+    </header>
+
+    <main class="contenedor">
+        <section class="panel-modulo">
+            <div>
+                <h2>Comandas de Cocina</h2>
+                <p>Gestión del estado de preparación de los pedidos</p>
+            </div>
+
+            <div id="filtros-cocina" class="filtros-cocina">
+                <button data-filtro="todos" class="activo">Todos</button>
+                <button data-filtro="pendiente">Pendientes</button>
+                <button data-filtro="preparando">En preparación</button>
+                <button data-filtro="listo">Listos</button>
+            </div>
+
+            <div id="cocina-pedidos"></div>
+        </section>
+    </main>
+
+</body>
+</html>
